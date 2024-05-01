@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         Rb = GetComponent<Rigidbody2D>();
+
         StateMachine.Initialize(idleState);
     }
 
