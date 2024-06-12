@@ -18,7 +18,15 @@ public class Entity : MonoBehaviour
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D Rb { get; private set; }
+
+    public EntityFX fx { get; private set; }
     #endregion
+
+
+    [Header("KnockBackInfo")]
+    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected float knockbackDuration = 0.07f;
+    protected bool isKnocked;
 
     protected virtual void Awake()
     {
@@ -26,6 +34,7 @@ public class Entity : MonoBehaviour
     }
     protected virtual void Start()
     {
+        fx = GetComponent<EntityFX>();
         anim = GetComponentInChildren<Animator>();
         Rb = GetComponent<Rigidbody2D>();
     }
@@ -36,7 +45,18 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage()
     {
+        fx.StartCoroutine("FlashFX");
+        StartCoroutine("HitKnockBack");
+    }
 
+    protected virtual IEnumerator HitKnockBack()
+    {
+        isKnocked = true;
+
+        Rb.velocity = new Vector2(knockbackDirection.x * -Dir, knockbackDirection.y);
+
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnocked=false;
     }
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, WhatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * Dir, wallChcekDistance, WhatIsGround);
@@ -59,6 +79,8 @@ public class Entity : MonoBehaviour
     }
     public void SetVelocity(float xVelocity, float yVelocity)
     {
+        if (isKnocked)
+            return;
         Rb.velocity = new Vector2(xVelocity, yVelocity);
         FlipControler(xVelocity);
     }

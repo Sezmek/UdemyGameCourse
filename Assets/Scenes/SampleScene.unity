@@ -909,6 +909,7 @@ GameObject:
   - component: {fileID: 690888618}
   - component: {fileID: 690888617}
   - component: {fileID: 690888620}
+  - component: {fileID: 690888621}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1018,11 +1019,26 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  knockbackDirection: {x: 0, y: 0}
+  knockbackDuration: 0
   movespeed: 8
   jumpforce: 10
   dashSpeed: 20
   dashDuration: 0.2
   DashCooldown: 5
+--- !u!114 &690888621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690888616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8039671303982f4cbc51896d6c1e1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitMaterial: {fileID: 2100000, guid: 035a88e084a58614495040965aec1db8, type: 2}
 --- !u!1 &862891856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2439,6 +2455,7 @@ GameObject:
   - component: {fileID: 1915367160}
   - component: {fileID: 1915367162}
   - component: {fileID: 1915367161}
+  - component: {fileID: 1915367163}
   m_Layer: 7
   m_Name: EnemySkeleton
   m_TagString: Untagged
@@ -2486,6 +2503,8 @@ MonoBehaviour:
   WhatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  knockbackDirection: {x: 7, y: 12}
+  knockbackDuration: 0.7
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2555,7 +2574,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 4
+  m_GravityScale: 12
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2567,6 +2586,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1915367163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915367158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8039671303982f4cbc51896d6c1e1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitMaterial: {fileID: 2100000, guid: 035a88e084a58614495040965aec1db8, type: 2}
 --- !u!1 &2090647871
 GameObject:
   m_ObjectHideFlags: 0
