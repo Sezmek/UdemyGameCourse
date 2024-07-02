@@ -6,7 +6,10 @@ using UnityEngine;
 public class Player : Entity
 {
     public bool IsBusy {  get; private set; }
-    
+
+    [Header("Attack detalis")]
+    public float counterAttackDuration = .2f;
+
     [Header("Move Info")]
     public float movespeed;
     public float jumpforce;
@@ -14,8 +17,6 @@ public class Player : Entity
     [Header("Dash Info")]
     public float dashSpeed;
     public float dashDuration;
-    [SerializeField] private float DashCooldown;
-    private float dashCooldownTime;
     public float DashDir { get; private set; }
 
 
@@ -38,6 +39,8 @@ public class Player : Entity
     public PlayerWallJumpState walljumpState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
 
+    public PlayerCounterAttackState counterAttackState { get; private set; }
+
 
 
     #endregion
@@ -55,6 +58,7 @@ public class Player : Entity
         wallslideState = new PlayerWallslideState(StateMachine, this, "WallSlide");
         walljumpState = new PlayerWallJumpState(StateMachine, this, "Jump");
         primaryAttackState = new PlayerPrimaryAttackState(StateMachine, this, "Attack");
+        counterAttackState = new PlayerCounterAttackState(StateMachine, this, "CounterAttack");
     }
 
     protected override void Start()
@@ -83,14 +87,15 @@ public class Player : Entity
         if (IsWallDetected())
             return;
 
-        dashCooldownTime -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTime < 0)
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
         {
-            dashCooldownTime = DashCooldown;
+
             DashDir = Input.GetAxisRaw("Horizontal");
 
             if (DashDir == 0)
                 DashDir = Dir;
+
             StateMachine.ChangeState(dashState);
         }
     }
