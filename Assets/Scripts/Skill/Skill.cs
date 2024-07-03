@@ -11,12 +11,12 @@ public class Skill : MonoBehaviour
 
     protected virtual void Update()
     {
-        cooldownTimer = -Time.deltaTime;
+        cooldownTimer -= Time.deltaTime;
     }
 
     public virtual bool CanUseSkill()
     {
-        if (cooldownTimer > 0)
+        if (cooldownTimer < 0)
         {
             UseSkill();
             cooldownTimer = cooldown;

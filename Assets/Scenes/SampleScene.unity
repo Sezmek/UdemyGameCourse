@@ -1699,6 +1699,7 @@ GameObject:
   - component: {fileID: 1563147922}
   - component: {fileID: 1563147921}
   - component: {fileID: 1563147920}
+  - component: {fileID: 1563147924}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -1746,6 +1747,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1563147924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563147919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56537c1febead5f4b9e17d58b206f165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  clonePrefab: {fileID: 2614457794037287481, guid: d289b272d745ee74ca88f10e6beec47a, type: 3}
+  cloneDuration: 1.5
+  canAttack: 1
 --- !u!1 &1695317540
 GameObject:
   m_ObjectHideFlags: 0
