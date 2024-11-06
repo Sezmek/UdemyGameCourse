@@ -1759,7 +1759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56537c1febead5f4b9e17d58b206f165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
+  cooldown: 5
   clonePrefab: {fileID: 2614457794037287481, guid: d289b272d745ee74ca88f10e6beec47a, type: 3}
   cloneDuration: 1.5
   canAttack: 1

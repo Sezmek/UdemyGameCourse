@@ -40,6 +40,8 @@ public class Player : Entity
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
 
     public PlayerCounterAttackState counterAttackState { get; private set; }
+    public PlayerAimSwordState aimSwordState { get; private set; }
+    public PlayerCatchSwordState catchSwordState { get; private set; }
 
 
 
@@ -59,6 +61,8 @@ public class Player : Entity
         walljumpState = new PlayerWallJumpState(StateMachine, this, "Jump");
         primaryAttackState = new PlayerPrimaryAttackState(StateMachine, this, "Attack");
         counterAttackState = new PlayerCounterAttackState(StateMachine, this, "CounterAttack");
+        catchSwordState = new PlayerCatchSwordState(StateMachine, this, "AimSword");
+        aimSwordState = new PlayerAimSwordState(StateMachine, this,"CatchSword");
     }
 
     protected override void Start()
