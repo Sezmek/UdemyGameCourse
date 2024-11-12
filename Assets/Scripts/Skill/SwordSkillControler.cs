@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class SwordSkillControler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Animator anim;
+    private Rigidbody2D rb;
+    private CircleCollider2D cd;
+    private Player player;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        cd = GetComponent<CircleCollider2D>();
+    }
+    
+    public void SetupSword(Vector2 _dir, float _gravityScale)
+    {
+        rb.velocity = _dir;
+        rb.gravityScale = _gravityScale;
     }
 }
