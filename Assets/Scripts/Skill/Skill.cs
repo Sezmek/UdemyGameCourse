@@ -10,7 +10,7 @@ public class Skill : MonoBehaviour
 
     protected Player player;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         player = PlayerManager.instance.player;
     }
