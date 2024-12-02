@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SwordSkillControler : MonoBehaviour
 {
-    [SerializeField] private float returnSpeed = 12f;
+    [SerializeField] private float returnSpeed = 15f;
     private Animator anim;
     private Rigidbody2D rb;
     private CircleCollider2D cd;
@@ -40,6 +40,10 @@ public class SwordSkillControler : MonoBehaviour
         cd = GetComponent<CircleCollider2D>();
     }
 
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
     public void SetupSword(Vector2 _dir, float _gravityScale, Player _player)
     {
         rb.velocity = _dir;
@@ -50,6 +54,8 @@ public class SwordSkillControler : MonoBehaviour
             anim.SetBool("Rotation", true);
 
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
+
+        Invoke("DestroyMe", 7);
     }
 
     public void SetupBounce(bool _isBouncing, int _amountOfBounces)
@@ -128,7 +134,7 @@ public class SwordSkillControler : MonoBehaviour
                     foreach (var collider in colliders)
                     {
                         if (collider.GetComponent<Enemy>() != null)
-                            collider.GetComponent<Enemy>().Damage();
+                            SwordSkillDamage(collider.GetComponent<Enemy>());
                     }
                 }
             }
@@ -150,7 +156,7 @@ public class SwordSkillControler : MonoBehaviour
 
             if (Vector2.Distance(transform.position, enemyTargets[targetIndex].position) < .1f)
             {
-                enemyTargets[targetIndex].GetComponent<Enemy>().Damage();
+                SwordSkillDamage(enemyTargets[targetIndex].GetComponent<Enemy>());
 
                 targetIndex++;
                 bounceAmount--;
@@ -172,9 +178,20 @@ public class SwordSkillControler : MonoBehaviour
         if (IsReturning)
             return;
 
+        if (collison.GetComponent<Enemy>() != null)
+        {
+            Enemy enemy = collison.GetComponent<Enemy>();
+            SwordSkillDamage(enemy);
+        }
         SetupTargetOfBounce(collison);
 
         StuckInto(collison);
+    }
+
+    private static void SwordSkillDamage(Enemy enemy)
+    {
+        enemy.StartCoroutine("FreezeTimeFor", enemy.FreezeTimeDuration);
+        enemy.Damage();
     }
 
     private void SetupTargetOfBounce(Collider2D collison)

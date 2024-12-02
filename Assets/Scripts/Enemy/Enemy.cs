@@ -10,11 +10,13 @@ public class Enemy : Entity
     public float stunDuration;
     public Vector2 stunDirection;
     protected bool canBeStunned;
+    public float FreezeTimeDuration;
     [SerializeField] protected GameObject counterImage;
     [Header("MoveInfo")]
     public float moveSpeed;
     public float idleTime;
     public float battleTime;
+    private float defaultSpeed;
     [Header("Attack info")]
     public float attckDistance;
     public float attackCooldown;
@@ -25,6 +27,7 @@ public class Enemy : Entity
     {
         base.Awake();
         stateMachine = new EnemyStateMachine();
+        defaultSpeed = moveSpeed;
     }
 
     protected override void Update()
@@ -33,6 +36,26 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
+    public virtual void FreezeTime(bool _timeFrozen)
+    {
+        if(_timeFrozen)
+        {
+            moveSpeed = 0;
+            anim.speed = 0;
+        }
+        else
+        {
+            moveSpeed = defaultSpeed;
+            anim.speed = 1;
+        }
+    }
+
+    protected virtual IEnumerator FreezeTimeFor(float _seconds)
+    {
+        FreezeTime(true);
+        yield return new WaitForSeconds(_seconds);
+        FreezeTime(false);
+    }
     public virtual void OpenCunterAttackWindow()
     {
         canBeStunned = true;
